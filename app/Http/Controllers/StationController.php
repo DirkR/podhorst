@@ -14,7 +14,8 @@ class StationController extends Controller
      */
     public function index()
     {
-        //
+        $stations = Station::get();
+        return view("station.list", ['stations' => $stations]);
     }
 
     /**

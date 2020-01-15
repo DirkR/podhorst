@@ -16,7 +16,9 @@ class CreateStationsTable extends Migration
         Schema::create('stations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('label', 60);
-            $table->string('description');
+            $table->string('description')->nullable();
+            $table->string('slug');
+            $table->string('url');
             $table->timestamps();
         });
     }
