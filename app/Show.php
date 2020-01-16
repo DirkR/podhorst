@@ -14,4 +14,12 @@ class Show extends Model
         return $this->belongsTo('App\Station');
     }
 
+    /**
+     * Get the comments for the blog post.
+     */
+    public function episodes()
+    {
+        return $this->hasMany('App\Episode');
+    }
+
 }
