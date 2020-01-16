@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Show;
+use App\Station;
 use Illuminate\Http\Request;
 
 class ShowController extends Controller
@@ -14,7 +15,8 @@ class ShowController extends Controller
      */
     public function index()
     {
-        //
+        $shows = Show::get();
+        return view("show.list", ['shows' => $shows]);
     }
 
     /**
@@ -46,7 +48,7 @@ class ShowController extends Controller
      */
     public function show(Show $show)
     {
-        //
+        return view("show.show", ['show' => $show]);
     }
 
     /**

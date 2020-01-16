@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::resource('/stations', 'StationController');
+Route::resource('/shows', 'ShowController');
