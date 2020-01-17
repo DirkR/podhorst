@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
+    protected $fillable = [
+        'label', 'description', 'slug'
+    ];
     /**
      * Get the comments for the blog post.
      */
