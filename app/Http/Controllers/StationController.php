@@ -36,7 +36,7 @@ class StationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -58,7 +58,7 @@ class StationController extends Controller
      */
     public function edit(Station $station)
     {
-        //
+        return view("station.edit", ['station' => $station]);
     }
 
     /**
@@ -70,7 +70,12 @@ class StationController extends Controller
      */
     public function update(Request $request, Station $station)
     {
-        //
+        $station->label = $request->input('label');
+        $station->description = $request->input('description');
+        $station->slug = $request->input('slug');
+        $station->url = $request->input('url');
+        $station->save();
+        return redirect('/stations/' . $station->id);
     }
 
     /**

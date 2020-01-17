@@ -17,7 +17,9 @@
                 <td> {{$station->description}} </td>
                 <td>
                     <a href="/stations/{{$station->id}}" type="button" class="btn btn-primary">Show</a>
+                    <a href="/stations/{{$station->id}}/edit" type="button" class="btn btn-secondary">Edit</a>
                 </td>
+
         @endforeach
         </tbody>
     </table>

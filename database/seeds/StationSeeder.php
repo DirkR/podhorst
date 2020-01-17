@@ -32,6 +32,9 @@ class StationSeeder extends Seeder
             ],
         ];
 
+        foreach ($data as $stationData) {
+            $station = \App\Station::firstOrCreate($stationData);
+        }
         DB::table('stations')->insert($data);
     }
 }

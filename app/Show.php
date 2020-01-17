@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Show extends Model
 {
     protected $fillable = [
-        'label', 'description', 'slug'
+        'label', 'description', 'slug',
     ];
     /**
      * Get the post that owns the comment.
