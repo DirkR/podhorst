@@ -1,13 +1,16 @@
-@extends('layout.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Stations') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-
-    <table class="table">
+    <table class="table-auto">
         <thead>
         <tr>
-            <th> label</th>
-            <th> description</th>
-            <th> &nbsp;</th>
+            <th>label</th>
+            <th>description</th>
+            <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
@@ -23,4 +26,4 @@
         @endforeach
         </tbody>
     </table>
-@endsection
+</x-app-layout>

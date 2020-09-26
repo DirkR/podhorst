@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /composer.lock
+/package-lock.json
 /.idea/*
 .env
 .env.backup

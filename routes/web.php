@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/stations', 'StationController');
-Route::resource('/shows', 'ShowController');
-Route::resource('/episodes', 'EpisodeController');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::resource('/stations', 'StationController');
+    Route::resource('/shows', 'ShowController');
+    Route::resource('/episodes', 'EpisodeController');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
