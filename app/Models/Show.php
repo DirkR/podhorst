@@ -1,20 +1,23 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Show extends Model
 {
     protected $fillable = [
-        'label', 'description', 'slug',
+        'label',
+        'description',
+        'slug',
     ];
+
     /**
      * Get the post that owns the comment.
      */
     public function station()
     {
-        return $this->belongsTo('App\Station');
+        return $this->belongsTo(Station::class);
     }
 
     /**
@@ -22,7 +25,7 @@ class Show extends Model
      */
     public function episodes()
     {
-        return $this->hasMany('App\Episode');
+        return $this->hasMany(Episode::class);
     }
 
 }

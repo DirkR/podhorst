@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Show;
-use App\Station;
+use App\Models\Show;
+use App\Models\Station;
 use Illuminate\Http\Request;
 
 class ShowController extends Controller
@@ -43,7 +43,7 @@ class ShowController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Show  $show
+     * @param  \App\Models\Show  $show
      * @return \Illuminate\Http\Response
      */
     public function show(Show $show)
@@ -54,7 +54,7 @@ class ShowController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Show  $show
+     * @param  \App\Models\Show  $show
      * @return \Illuminate\Http\Response
      */
     public function edit(Show $show)
@@ -66,7 +66,7 @@ class ShowController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Show  $show
+     * @param  \App\Models\Show  $show
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Show $show)
@@ -77,7 +77,7 @@ class ShowController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Show  $show
+     * @param  \App\Models\Show  $show
      * @return \Illuminate\Http\Response
      */
     public function destroy(Show $show)

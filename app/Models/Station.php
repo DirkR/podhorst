@@ -1,19 +1,24 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Station extends Model
 {
     protected $fillable = [
-        'label', 'description', 'slug', 'url',
+        'label',
+        'description',
+        'slug',
+        'url',
     ];
+
     /**
      * Get the comments for the blog post.
      */
+
     public function shows()
     {
-        return $this->hasMany('App\Show');
+        return $this->hasMany(Show::class);
     }
 }

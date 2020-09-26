@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 
-use App\Episode;
+use App\Models\Episode;
 
 class EpisodeFactory extends Factory
 {

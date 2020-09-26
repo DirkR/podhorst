@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 
-use App\Station;
+use App\Models\Station;
 
 class StationFactory extends Factory
 {
