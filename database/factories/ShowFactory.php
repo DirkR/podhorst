@@ -1,12 +1,18 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
+
 
 use App\Show;
-use Faker\Generator as Faker;
 
-$factory->define(Show::class, function (Faker $faker) {
-    return [
-        //
-    ];
-});
+class ShowFactory extends Factory
+{
+    protected $model = Show::class;
+
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}

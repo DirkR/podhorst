@@ -1,12 +1,18 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
+
 
 use App\Station;
-use Faker\Generator as Faker;
 
-$factory->define(Station::class, function (Faker $faker) {
-    return [
-        //
-    ];
-});
+class StationFactory extends Factory
+{
+    protected $model = Station::class;
+
+    public function definition()
+    {
+        return [
+            //
+        ];
+    }
+}
