@@ -1,18 +1,22 @@
-@extends('layout.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Show') }}: {{$show->label}}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <div class="card">
-        <div class="card-header">
-            {{$show->label}}
-        </div>
-        <div class="card-body">
-            <p class="card-text">{{$show->description}}</p>
+    <div class="max-w-full my-3 mx-3 rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+            <div class="font-bold text-xl mb-2">{{$show->label}}</div>
+            <p class="text-gray-700 text-base">{{$show->description}}</p>
+            <p>Episodes:</p>
             <ul>
                 @foreach($show->episodes as $episode)
-                    <li><a href="/shows/{{$episode->id}}">{{$episode->label}}</a></li>
+                    <li><a href="/episodes/{{$episode->id}}">{{$episode->label}}</a></li>
                 @endforeach
             </ul>
+            <hr>
             <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
     </div>
-@endsection
+</x-app-layout>

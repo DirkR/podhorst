@@ -5,22 +5,26 @@
         </h2>
     </x-slot>
 
-    <table class="table-auto">
-        <thead>
-        <tr>
-            <th>station</th>
-            <th>label</th>
-            <th>description</th>
-            <th> &nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($shows as $show)
-            <tr>
-                <td><a href="/stations/{{$show->station->id}}">{{$show->station->label}}</a></td>
-                <td><a href="/shows/{{$show->id}}">{{$show->label}}</a></td>
-                <td> {{$show->description}} </td>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="max-w-full my-3 mx-3 rounded overflow-hidden shadow-lg">
+        <div class="px-6 py-4">
+            <table class="table-auto">
+                <thead>
+                <tr>
+                    <th>{{__('Station')}}</th>
+                    <th>{{__('Label')}}</th>
+                    <th>{{__('Description')}}</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($shows as $show)
+                    <tr>
+                        <td><a href="/stations/{{$show->station->id}}">{{$show->station->label}}</a></td>
+                        <td><a href="/shows/{{$show->id}}">{{$show->label}}</a></td>
+                        <td>{{$show->description}} </td>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </x-app-layout>
