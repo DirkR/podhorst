@@ -1,5 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Models\Show;
+use App\Models\Station;
 use Illuminate\Database\Seeder;
 
 class ShowSeeder extends Seeder
@@ -11,27 +15,32 @@ class ShowSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
+        $show_data = [
             [
-                "station_id"=>1,
+                "station_slug" => 'dlf',
                 "label" => "Forschung aktuell",
                 "description" => "Meldungen aus der Wissenschaft",
                 "slug" => "dlf/forschung",
             ],
             [
-                "station_id"=>1,
+                "station_slug" => 'dlf',
                 "label" => "Interview der Woche",
                 "description" => "Aktuelle und historische Ereignisse kommentiert",
-                "slug" => "dlf/Interview",
+                "slug" => "dlf/interview",
             ],
             [
-                "station_id"=>1,
+                "station_slug" => 'dlf',
                 "label" => "Wirtschaft und Gesellschaft",
                 "description" => "Wirtschaft und Gesellschaft aktuelle Themen",
                 "slug" => "dlf/wirtschaft",
             ],
         ];
 
-        DB::table('shows')->insert($data);
+        foreach ($show_data as $item) {
+            $station = Station::firstWhere('slug', $item['station_slug']);
+            $item['station_id'] = $station->id;
+            unset($item['station_slug']);
+            $show = Show::factory()->create($item);
+        }
     }
 }
