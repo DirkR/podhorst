@@ -16,9 +16,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::resource('/stations', 'StationController');
-    Route::resource('/shows', 'ShowController');
-    Route::resource('/episodes', 'EpisodeController');
+    Route::resource('station', 'StationController');
+    Route::resource('show', 'ShowController');
+    Route::resource('episode', 'EpisodeController')->only(['index', 'show']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

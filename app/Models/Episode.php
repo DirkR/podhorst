@@ -10,7 +10,9 @@ class Episode extends Model
     use HasFactory;
 
     protected $fillable = [
-        'label', 'description', 'slug'
+        'label',
+        'description',
+        'slug',
     ];
 
     /**

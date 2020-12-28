@@ -5,25 +5,27 @@
         </h2>
     </x-slot>
 
-    <table class="table-auto">
-        <thead>
-        <tr>
-            <th>label</th>
-            <th>description</th>
-            <th>&nbsp;</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($stations as $station)
+    <div class="w-5/6 sm:w-full xl:w-2/3 m-auto my-8">
+        <table class="w-full">
+            <thead class="bg-gray-200">
             <tr>
-                <td> {{$station->label}} </td>
-                <td> {{$station->description}} </td>
-                <td>
-                    <a href="/stations/{{$station->id}}" type="button" class="btn btn-primary">Show</a>
-                    <a href="/stations/{{$station->id}}/edit" type="button" class="btn btn-secondary">Edit</a>
-                </td>
+                <th>label</th>
+                <th>description</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($stations as $station)
+                <tr>
+                    <td> {{$station->label}} </td>
+                    <td> {{$station->description}} </td>
+                    <td>
+                        <a href="{{route('station.show', ['station' => $station->id])}}" type="button" class="btn btn-primary">Show</a>
+                        <a href="{{route('station.edit', ['station' => $station->id])}}" type="button" class="btn btn-secondary">Edit</a>
+                    </td>
 
-        @endforeach
-        </tbody>
-    </table>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 </x-app-layout>
