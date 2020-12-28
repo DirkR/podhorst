@@ -16,7 +16,7 @@
                         @lang('app.Dashboard')
                     </x-jet-nav-link>
                 </div>
-
+<!--
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('station.index') }}" :active="request()->routeIs('stations.index')">
                         {{ __('app.Stations') }}
@@ -28,10 +28,10 @@
                         {{ __('app.Shows') }}
                     </x-jet-nav-link>
                 </div>
-
+-->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('episode.index') }}" :active="request()->routeIs('episodes.index')">
-                        {{ __('app.Episodes') }}
+                        {{ __('app.Recordings') }}
                     </x-jet-nav-link>
                 </div>
             </div>

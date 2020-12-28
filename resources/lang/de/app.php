@@ -7,6 +7,7 @@ return [
     'Operations' => 'Aktionen',
 
     'Dashboard' => 'Übersicht',
+    'Recordings' => 'Aufnahmen',
 
     'Station' => 'Station',
     'Stations' => 'Stationen',

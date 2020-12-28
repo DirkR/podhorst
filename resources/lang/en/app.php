@@ -7,6 +7,7 @@ return [
     'Operations' => 'Operations',
 
     'Dashboard' => 'Dashboard',
+    'Recordings' => 'Recordings',
 
     'Station' => 'Station',
     'Stations' => 'Stations',
