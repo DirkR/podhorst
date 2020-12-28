@@ -13,25 +13,25 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        @lang('app..Dashboard')
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('station.index') }}" :active="request()->routeIs('stations.index')">
-                        {{ __('Stations') }}
+                        {{ __('app.Stations') }}
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('show.index') }}" :active="request()->routeIs('shows.index')">
-                        {{ __('Shows') }}
+                        {{ __('app.Shows') }}
                     </x-jet-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('episode.index') }}" :active="request()->routeIs('episodes.index')">
-                        {{ __('Episodes') }}
+                        {{ __('app.Episodes') }}
                     </x-jet-nav-link>
                 </div>
             </div>

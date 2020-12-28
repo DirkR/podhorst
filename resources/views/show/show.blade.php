@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Show: :label', ['label' => $show->label]) }}
+            @lang('app.Show: :label', ['label' => $show->label])
         </h2>
     </x-slot>
 
@@ -12,6 +12,6 @@
                 <li><a href="{{ route('episode.show', ['episode' => $episode->id])}}">{{$episode->label}}</a></li>
             @endforeach
         </ul>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="{{ URL::previous() }}" class="btn btn-primary">@lang('app.Back to list')</a>
     </div>
 </x-app-layout>

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Station: :label', ['label' => $station->label]) }}
+            @lang('app.Station: :label', ['label' => $station->label])
         </h2>
     </x-slot>
 
@@ -28,8 +28,8 @@
 
             <hr class="my-4">
 
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="btn-group" role="group">
+                <button type="submit" class="btn btn-primary">@lang('app.Submit')</button>
             </div>
         </form>
     </div>

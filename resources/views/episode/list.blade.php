@@ -1,26 +1,29 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Episodes') }}
+            @lang('app.Episodes')
         </h2>
     </x-slot>
 
     <div class="w-5/6 sm:w-full xl:w-2/3 m-auto my-8">
         <table class="w-full">
-            <thead>
+            <thead class="bg-gray-200">
             <tr>
-                <th>show</th>
-                <th>label</th>
-                <th>description</th>
-                <th>&nbsp;</th>
+                <th>@lang('app.Station')</th>
+                <th>@lang('app.Show')</th>
+                <th>@lang('app.Episode')</th>
+                <th>@lang('app.Date')</th>
             </tr>
             </thead>
             <tbody>
             @foreach($episodes as $episode)
                 <tr>
-                    <td><a href="/shows/{{$episode->show->id}}">{{$episode->show->label}}</a></td>
-                    <td><a href="/episodes/{{$episode->id}}">{{$episode->label}}</a></td>
-                    <td> {{$episode->description}} </td>
+                    <td>
+                        <a href="{{route('station.show', ['station' => $episode->show->station->id])}}">{{$episode->show->station->label}}</a>
+                    </td>
+                    <td><a href="{{route('show.show', ['show' => $episode->show->id])}}">{{$episode->show->label}}</a></td>
+                    <td><a href="{{route('episode.show', ['episode' => $episode->id])}}">{{$episode->label}}</a></td>
+                    <td> {{$episode->created_at->format('d.m.Y, H:i') }} </td>
             @endforeach
             </tbody>
         </table>
