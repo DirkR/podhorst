@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\DashboardController;
+
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
@@ -21,6 +23,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('episode', 'EpisodeController')->only(['index', 'show']);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');

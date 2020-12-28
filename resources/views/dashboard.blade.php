@@ -5,11 +5,22 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
+    <div class="py-12 mx-auto">
+        <div class="w-1/3 sm:px-6 lg:px-8 flex-row">
+            @foreach($stations as $station)
+                <div class="bg-white shadow-xl sm:rounded-lg m-4 flex">
+                    <h3>{{$station->label}}</h3>
+                    <div>
+                    <ul class="list-disc">
+                        @foreach($station->shows as $show)
+                            <li>
+                                {{$show->label}} ({{ $show->episodes->count() }})
+                            </li>
+                        @endforeach
+                    </ul>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </x-app-layout>
