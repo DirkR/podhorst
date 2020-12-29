@@ -13,7 +13,9 @@ class Station extends Model
         'label',
         'description',
         'slug',
-        'url',
+        'homepage_url',
+        'stream_url',
+        'icon_url',
     ];
 
     /**

@@ -39,7 +39,19 @@ class StationController extends Controller
         $station->label = $request->input('label');
         $station->description = $request->input('description');
         $station->slug = $request->input('slug');
-        //$station->url = $request->input('url');
+
+        if ($url = $request->input('homepage_url')) {
+            $station->homepage_url = $url;
+        }
+
+        if ($url = $request->input('stream_url')) {
+            $station->stream_url = $url;
+        }
+
+        if ($url = $request->input('icon_url')) {
+            $station->icon_url = $url;
+        }
+
         $station->save();
 
         return redirect()->route('station.show', ['station' => $station->id]);

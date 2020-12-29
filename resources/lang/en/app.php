@@ -9,6 +9,11 @@ return [
     'Dashboard' => 'Dashboard',
     'Recordings' => 'Recordings',
 
+    'Slug' => 'Slug',
+    'Homepage' => 'Homepage',
+    'Stream URL' => 'Stream URL',
+    'Icon URL' => 'Icon URL',
+
     'Station' => 'Station',
     'Stations' => 'Stations',
     'Station: :label' => 'Station: :label',

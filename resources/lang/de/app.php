@@ -9,6 +9,11 @@ return [
     'Dashboard' => 'Übersicht',
     'Recordings' => 'Aufnahmen',
 
+    'Slug' => 'Pfad',
+    'Homepage' => 'Website',
+    'Stream URL' => 'Stream-URL',
+    'Icon URL' => 'Icon-URL',
+
     'Station' => 'Station',
     'Stations' => 'Stationen',
     'Station :label' => 'Station :label',
@@ -29,6 +34,7 @@ return [
 #    'Show' => 'Anzeigen',
     'Edit' => 'Bearbeiten',
     'Delete' => 'Löschen',
+    'Back' => 'Zurück',
     'Back to list' => 'Zurück zur Liste',
     'Submit' => 'Absenden',
 ];
