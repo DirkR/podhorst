@@ -14,7 +14,7 @@ class CreateShowsTable extends Migration
     public function up()
     {
         Schema::create('shows', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->bigInteger('station_id')->unsigned();
             $table->string('label', 60);
             $table->string('description')->nullable();
