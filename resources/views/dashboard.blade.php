@@ -8,13 +8,13 @@
     <div class="py-12">
         <div class="lg:max-w-7xl mx-auto max-w-full sm:px-6 lg:px-8">
             @foreach($stations as $station)
-                <div class="bg-white shadow-xl sm:rounded-lg m-4 p-4">
+                <x-card>
                     <table class="w-full">
                         <tr>
-                            <td class="w-1/6 align-top"><a
-                                    href="{{route('station.show', ['station' => $station->id])}}">{{$station->label}}</a>
+                            <td class="w-1/6 align-top">
+                                <a href="{{route('station.show', ['station' => $station->id])}}">{{$station->label}}</a>
                             </td>
-                            <td class="w-1/2 align-top">{{$station->description}}</td>
+                            <td class="w-1/3 align-top">{{$station->description}}</td>
                             <td class="w-1/3 align-top">
                                 <ul class="list-disc">
                                     @foreach($station->shows as $show)
@@ -31,7 +31,7 @@
                             </td>
                         </tr>
                     </table>
-                </div>
+                </x-card>
             @endforeach
         </div>
     </div>
