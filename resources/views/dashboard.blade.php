@@ -12,22 +12,26 @@
                     <table class="w-full">
                         <tr>
                             <td class="w-1/6 align-top">
-                                <a href="{{route('station.show', ['station' => $station->id])}}">{{$station->label}}</a>
+                                <a class="inline-block" href="{{route('station.show', ['station' => $station->id])}}">{{$station->label}}</a>
+                                <a class="inline-block" href="{{route('station.show', ['station' => $station->id])}}" title="@lang('app.Show station')"><x-heroicon-o-eye class="h-4 w-4 text-gray-400"/></a>
+                                <a class="inline-block" href="{{route('station.edit', ['station' => $station->id])}}" title="@lang('app.Edit station')"><x-heroicon-o-pencil class="h-4 w-4 text-gray-400"/></a>
                             </td>
                             <td class="w-1/3 align-top">{{$station->description}}</td>
                             <td class="w-1/3 align-top">
                                 <ul class="list-disc">
                                     @foreach($station->shows as $show)
                                         <li>
-                                            <a href="{{route('show.show', ['show' => $show->id])}}">{{$show->label}}
+                                            <a class="inline-block" href="{{route('show.show', ['show' => $show->id])}}">{{$show->label}}
                                                 ({{ $show->episodes->count() }})</a>
+                                            <a class="inline-block" href="{{route('show.show', ['show' => $show->id])}}" title="@lang('app.Show show')"><x-heroicon-o-eye class="h-4 w-4 text-gray-400"/></a>
+                                            <a class="inline-block" href="{{route('show.edit', ['show' => $show->id])}}" title="@lang('app.Edit show')"><x-heroicon-o-pencil class="h-4 w-4 text-gray-400"/></a>
+
                                         </li>
                                     @endforeach
                                 </ul>
                             </td>
                             <td class="w-1/6 align-top">
-                                <a href="{{route('station.show', ['station' => $station->id])}}">@lang('app.Show station')</a>
-                                <a href="{{route('station.edit', ['station' => $station->id])}}">@lang('app.Edit station')</a>
+
                             </td>
                         </tr>
                     </table>
