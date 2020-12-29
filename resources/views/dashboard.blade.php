@@ -11,7 +11,14 @@
                 <x-card>
                     <table class="w-full">
                         <tr>
-                            <td class="w-1/6 align-top">
+                            <td class="w-1/12 align-top pr-4">
+                                @if($station->icon_url)
+                                    <img class="w-20 h-20" src="{{$station->icon_url}}" alt="@lang('app.Station') Logo">
+                                @else
+                                    <img class="w-20 h-20" src="{{config('podhorst.default_logo.url')}}" alt="{{config('podhorst.default_logo.copyright')}}">
+                                @endif
+                            </td>
+                            <td class="w-1/4 align-top">
                                 <a class="inline-block" href="{{route('station.show', ['station' => $station->id])}}">{{$station->label}}</a>
                                 <a class="inline-block" href="{{route('station.show', ['station' => $station->id])}}" title="@lang('app.Show station')"><x-heroicon-o-eye class="h-4 w-4 text-gray-400"/></a>
                                 <a class="inline-block" href="{{route('station.edit', ['station' => $station->id])}}" title="@lang('app.Edit station')"><x-heroicon-o-pencil class="h-4 w-4 text-gray-400"/></a>
@@ -29,9 +36,6 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                            </td>
-                            <td class="w-1/6 align-top">
-
                             </td>
                         </tr>
                     </table>
