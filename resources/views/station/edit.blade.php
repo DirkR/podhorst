@@ -26,11 +26,9 @@
                 <x-inputs.text for="url" value="{{ $station->url }}"></x-inputs.text>
             </x-inputs.group>
 
-            <hr class="my-4">
-
-            <div class="btn-group" role="group">
-                <button type="submit" class="btn btn-primary">@lang('app.Submit')</button>
-            </div>
+            <x-inputs.buttongroup>
+                <x-inputs.button>@lang('app.Submit')</x-inputs.button>
+            </x-inputs.buttongroup>
         </form>
     </div>
 </x-app-layout>

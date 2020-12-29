@@ -12,6 +12,10 @@
                 <li><a href="{{ route('episode.show', ['episode' => $episode->id])}}">{{$episode->label}}</a></li>
             @endforeach
         </ul>
-        <a href="{{ URL::previous() }}" class="btn btn-primary">@lang('app.Back to list')</a>
+
+        <x-inputs.buttongroup>
+            <a href="{{ URL::previous() }}" class="btn underline btn-primary">@lang('app.Back to list')</a>
+        </x-inputs.buttongroup>
+
     </div>
 </x-app-layout>

@@ -25,4 +25,5 @@ return [
     'Edit' => 'Edit',
     'Delete' => 'Delete',
     'Back to list' => 'Back to list',
+    'Submit' => 'Submit',
 ];

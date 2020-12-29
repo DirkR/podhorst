@@ -25,4 +25,5 @@ return [
     'Edit' => 'Bearbeiten',
     'Delete' => 'Löschen',
     'Back to list' => 'Zurück zur Liste',
+    'Submit' => 'Absenden',
 ];

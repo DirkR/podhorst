@@ -8,8 +8,8 @@
     <div class="w-5/6 sm:w-full xl:w-2/3 m-auto my-8">
         <p class="card-text">{{$episode->description}}</p>
 
-        <hr class="my-4">
-
-        <a href="{{ URL::previous() }}" class="btn btn-primary">@lang('app.Back to list')</a>
+        <x-inputs.buttongroup>
+            <a href="{{ URL::previous() }}" class="btn btn-primary">@lang('app.Back to list')</a>
+        </x-inputs.buttongroup>
     </div>
 </x-app-layout>
