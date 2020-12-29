@@ -25,6 +25,10 @@
                                     @endforeach
                                 </ul>
                             </td>
+                            <td class="w-1/6 align-top">
+                                <a href="{{route('station.show', ['station' => $station->id])}}">@lang('app.Show station')</a>
+                                <a href="{{route('station.edit', ['station' => $station->id])}}">@lang('app.Edit station')</a>
+                            </td>
                         </tr>
                     </table>
                 </div>
