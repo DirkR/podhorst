@@ -13,6 +13,13 @@ class Show extends Model
         'label',
         'description',
         'slug',
+        'homepage_url',
+        'icon_url',
+        'duration',
+        'day',
+        'hour',
+        'minute',
+        'active',
     ];
 
     /**

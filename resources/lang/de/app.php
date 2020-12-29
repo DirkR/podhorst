@@ -14,6 +14,16 @@ return [
     'Stream URL' => 'Stream-URL',
     'Icon URL' => 'Icon-URL',
 
+    'Day' => 'Tag',
+    'Time' => 'Zeit',
+    'Hour' => 'Stunde',
+    'Minute' => 'Minute',
+    'Duration' => 'Dauer',
+
+    'Active' => 'Aktiv',
+    'Yes' => 'Ja',
+    'No' => 'Nein',
+
     'Station' => 'Station',
     'Stations' => 'Stationen',
     'Station :label' => 'Station :label',
