@@ -45,9 +45,9 @@
                                                 <a class="inline-block" href="#" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-200"/></a>
                                             @endif
                                             <a class="inline-block" href="/{{$show->station->slug}}/{{$show->slug}}/rss.xml" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
-
                                         </li>
                                     @endforeach
+                                    <a href="{{ route('show.create', ['station' => $station->id]) }}"><x-heroicon-o-plus class="h-6 w-6 text-gray-400"/></a>
                                 </ul>
                             </td>
                         </tr>

@@ -10,6 +10,7 @@ class Show extends Model
     use HasFactory;
 
     protected $fillable = [
+        'station_id',
         'label',
         'description',
         'slug',
