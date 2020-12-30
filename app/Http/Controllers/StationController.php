@@ -16,12 +16,15 @@ class StationController extends Controller
 
     public function create()
     {
-        //
+        return view("station.create");
     }
 
     public function store(Request $request)
     {
+        $data = $request->only(['label', 'description', 'slug', 'homepage_url', 'stream_url', 'icon_url']);
+        $station = Station::create($data);
 
+        return redirect()->route('station.show', ['station' => $station->id]);
     }
 
     public function show(Station $station)

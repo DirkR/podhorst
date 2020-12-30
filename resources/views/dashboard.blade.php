@@ -54,6 +54,7 @@
                     </table>
                 </x-card>
             @endforeach
+                <a href="{{ route('station.create') }}"><x-heroicon-o-plus class="h-8 w-8 text-gray-400"/></a>
         </div>
     </div>
 </x-app-layout>
