@@ -22,4 +22,16 @@ class Episode extends Model
     {
         return $this->belongsTo(Show::class);
     }
+
+    public function station()
+    {
+        return $this->hasOneThrough(
+            Station::class,
+            Show::class,
+            'id',
+            'id',
+            'show_id',
+            'station_id'
+        );
+    }
 }
