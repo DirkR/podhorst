@@ -59,7 +59,20 @@ class ShowController extends Controller
         $show->label = $request->input('label');
         $show->description = $request->input('description');
         $show->slug = $request->input('slug');
-        #$show->url = $request->input('url');
+        $show->duration = $request->input('duration', 0);
+        $show->day = $request->input('day', 0);
+        $show->hour = $request->input('hour', 0);
+        $show->minute = $request->input('minute', 0);
+        $show->active = $request->input('active', 1);
+
+        if ($url = $request->input('homepage_url')) {
+            $show->homepage_url = $url;
+        }
+
+        if ($url = $request->input('icon_url')) {
+            $show->icon_url = $url;
+        }
+
         $show->save();
 
         return redirect()->route('show.show', ['show' => $show->id]);

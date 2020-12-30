@@ -77,7 +77,7 @@ class PodcastFeedController extends Controller
         );
 
         $items = $this->createItemsList($show->episodes);
-        
+
         return view('feed.feed', compact('feed', 'items'));
     }
 
