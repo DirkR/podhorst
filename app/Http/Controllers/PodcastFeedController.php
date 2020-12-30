@@ -66,7 +66,7 @@ class PodcastFeedController extends Controller
             [
                 'title' => 'All About Everything',
                 'description' => 'Great site description',
-                'link' => config('podhorst'),
+                'link' => $show->homepage_url,
                 'image' => config('podhorst.default_logo.url'),
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
@@ -76,8 +76,8 @@ class PodcastFeedController extends Controller
             ]
         );
 
-        $items = $this->createItemsList($show->episodes());
-
+        $items = $this->createItemsList($show->episodes);
+        
         return view('feed.feed', compact('feed', 'items'));
     }
 

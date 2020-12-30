@@ -28,7 +28,7 @@
                                     <a class="inline-block" href="#" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-200"/></a>
                                 @endif
 
-                                <a class="inline-block" href="/{{$station->slug}}/rss.xml" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
+                                <a class="inline-block" href="/{{$station->slug}}/feed" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
                             </td>
                             <td class="w-1/3 align-top">{{$station->description}}</td>
                             <td class="w-1/3 align-top">
@@ -44,7 +44,7 @@
                                             @else
                                                 <a class="inline-block" href="#" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-200"/></a>
                                             @endif
-                                            <a class="inline-block" href="/{{$show->station->slug}}/{{$show->slug}}/rss.xml" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
+                                            <a class="inline-block" href="/{{$show->station->slug}}/{{$show->slug}}/feed" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
                                         </li>
                                     @endforeach
                                     <a href="{{ route('show.create', ['station' => $station->id]) }}"><x-heroicon-o-plus class="h-6 w-6 text-gray-400"/></a>
