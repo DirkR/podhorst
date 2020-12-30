@@ -22,6 +22,13 @@
                                 <a class="inline-block" href="{{route('station.show', ['station' => $station->id])}}">{{$station->label}}</a>
                                 <a class="inline-block" href="{{route('station.show', ['station' => $station->id])}}" title="@lang('app.Show station')"><x-heroicon-o-eye class="h-4 w-4 text-gray-400"/></a>
                                 <a class="inline-block" href="{{route('station.edit', ['station' => $station->id])}}" title="@lang('app.Edit station')"><x-heroicon-o-pencil class="h-4 w-4 text-gray-400"/></a>
+                                @if($station->homepage_url)
+                                    <a class="inline-block" href="{{$station->homepage_url}}" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-400"/></a>
+                                @else
+                                    <a class="inline-block" href="#" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-200"/></a>
+                                @endif
+
+                                <a class="inline-block" href="/{{$station->slug}}/rss.xml" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
                             </td>
                             <td class="w-1/3 align-top">{{$station->description}}</td>
                             <td class="w-1/3 align-top">
@@ -32,6 +39,12 @@
                                                 ({{ $show->episodes->count() }})</a>
                                             <a class="inline-block" href="{{route('show.show', ['show' => $show->id])}}" title="@lang('app.Show show')"><x-heroicon-o-eye class="h-4 w-4 text-gray-400"/></a>
                                             <a class="inline-block" href="{{route('show.edit', ['show' => $show->id])}}" title="@lang('app.Edit show')"><x-heroicon-o-pencil class="h-4 w-4 text-gray-400"/></a>
+                                            @if($show->homepage_url)
+                                                <a class="inline-block" href="{{$show->homepage_url}}" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-400"/></a>
+                                            @else
+                                                <a class="inline-block" href="#" title="@lang('app.Homepage')"><x-heroicon-o-globe-alt class="h-4 w-4 text-gray-200"/></a>
+                                            @endif
+                                            <a class="inline-block" href="/{{$show->station->slug}}/{{$show->slug}}/rss.xml" title="@lang('app.RSS Feed')"><x-heroicon-o-rss class="h-4 w-4 text-gray-400"/></a>
 
                                         </li>
                                     @endforeach
