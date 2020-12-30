@@ -18,12 +18,13 @@ class Station extends Model
         'icon_url',
     ];
 
-    /**
-     * Get the comments for the blog post.
-     */
-
     public function shows()
     {
         return $this->hasMany(Show::class);
+    }
+
+    public function episodes()
+    {
+        return $this->hasManyThrough(Episode::class, Show::class);
     }
 }
