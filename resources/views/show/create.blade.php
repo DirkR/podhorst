@@ -27,19 +27,15 @@
             </x-inputs.group>
 
             <x-inputs.group for="day" label="{{ __('app.Day') }}">
-                <x-inputs.text for="day"></x-inputs.text>
+                <x-inputs.day-selection for="day" value="{{ date('N') }}"></x-inputs.day-selection>
             </x-inputs.group>
 
-            <x-inputs.group for="hour" label="{{ __('app.Hour') }}">
-                <x-inputs.text for="hour"></x-inputs.text>
-            </x-inputs.group>
-
-            <x-inputs.group for="minute" label="{{ __('app.Minute') }}">
-                <x-inputs.text for="minute"></x-inputs.text>
+            <x-inputs.group for="time" label="{{ __('app.Time') }}">
+                <x-inputs.time-selection for="time" hour="{{ date('H') + 1 }}" minute="5"></x-inputs.time-selection>
             </x-inputs.group>
 
             <x-inputs.group for="duration" label="{{ __('app.Duration') }}">
-                <x-inputs.text for="duration"></x-inputs.text>
+                <x-inputs.time-selection for="duration" hour="0" minute="15"></x-inputs.time-selection>
             </x-inputs.group>
 
             <x-inputs.group for="homepage_url" label="{{ __('app.Homepage') }}">
