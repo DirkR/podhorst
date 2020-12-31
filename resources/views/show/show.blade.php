@@ -24,7 +24,7 @@
                                              href="{{$show->homepage_url}}">{{ $show->homepage_url }}</a></p>
                 <p>@lang('app.Duration'): {{ $show->duration }}</p>
                 <p>@lang('app.Day'): {{ __("app.days.{$show->day}") }}</p>
-                <p>@lang('app.Time'): {{ $show->hour }}: {{ $show->minute }}</p>
+                <p>@lang('app.Time'): {{ sprintf("%02d:%02d", $show->hour, $show->minute) }}</p>
                 <p>@lang('app.Active'): {{ $show->active ? __('app.Yes') : __('app.No') }}</p>
             </div>
         </div>

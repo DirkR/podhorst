@@ -61,8 +61,8 @@ class ShowController extends Controller
         $show->slug = $request->input('slug');
         $show->duration = $request->input('duration', 0);
         $show->day = $request->input('day', 0);
-        $show->hour = $request->input('hour', 0);
-        $show->minute = $request->input('minute', 0);
+        $show->hour = $request->input('time-hour', 0);
+        $show->minute = $request->input('time-minute', 0);
         $show->active = $request->input('active', 1);
 
         if ($url = $request->input('homepage_url')) {
