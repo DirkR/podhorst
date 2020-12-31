@@ -35,7 +35,7 @@
             </x-inputs.group>
 
             <x-inputs.group for="duration" label="{{ __('app.Duration') }}">
-                <x-inputs.text for="duration" value="{{ $show->duration }}"></x-inputs.text>
+                <x-inputs.time-selection for="duration" hour="{{ intval($show->duration / 60) }}" minute="{{ $show->duration % 60 }}"></x-inputs.time-selection>
             </x-inputs.group>
 
             <x-inputs.group for="homepage_url" label="{{ __('app.Homepage') }}">
