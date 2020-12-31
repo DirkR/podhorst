@@ -27,15 +27,11 @@
             </x-inputs.group>
 
             <x-inputs.group for="day" label="{{ __('app.Day') }}">
-                <x-inputs.text for="day" value="{{ $show->day }}"></x-inputs.text>
+                <x-inputs.day-selection for="day" value="{{ $show->day }}"></x-inputs.day-selection>
             </x-inputs.group>
 
-            <x-inputs.group for="hour" label="{{ __('app.Hour') }}">
-                <x-inputs.text for="hour" value="{{ $show->hour }}"></x-inputs.text>
-            </x-inputs.group>
-
-            <x-inputs.group for="minute" label="{{ __('app.Minute') }}">
-                <x-inputs.text for="minute" value="{{ $show->minute }}"></x-inputs.text>
+            <x-inputs.group for="time" label="{{ __('app.Time') }}">
+                <x-inputs.time-selection for="time" hour="{{ $show->hour }}" minute="{{ $show->minute }}"></x-inputs.time-selection>
             </x-inputs.group>
 
             <x-inputs.group for="duration" label="{{ __('app.Duration') }}">
