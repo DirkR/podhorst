@@ -42,6 +42,9 @@ return [
     'Show episode' => 'Episode anzeigen',
     'Episode of ":title" on :date' => 'Sendung ":title" vom :date',
 
+    "Recorded :label" => ":label aufgenommen",
+    "Error occured while recording an episode of \":label\"" => "Ein Fehler trat bei der Aufnahme einer Episode von \":label\" auf",
+
 #    'Show' => 'Anzeigen',
     'Edit' => 'Bearbeiten',
     'Delete' => 'Löschen',

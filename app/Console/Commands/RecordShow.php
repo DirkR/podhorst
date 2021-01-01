@@ -22,30 +22,27 @@ class RecordShow extends Command
      *
      * @var string
      */
-    protected $description = 'Record an episode of a radio show ';
+    protected $description = 'Record an episode of a radio show';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle(RecordingProcessor $processor)
+    public function handle(RecordingProcessor $processor): int
     {
         $show = $this->findShow();
-        $show->duration = 1;
         $episode = $processor->record($show);
-        dd($episode);
-        return 0;
+        $return = 0;
+
+        if (!$episode) {
+            $this->info(__("Recorded :label", ['label' => $episode->label]));
+        } else {
+            $this->warn(__("Error occured while recording an episode of \":label\"", ['label' => $show->label]));
+            $return = 1;
+        }
+
+        return $return;
     }
 
     private function findShow()
@@ -62,6 +59,5 @@ class RecordShow extends Command
         }
 
         return Show::where('slug', $show_slug)->first();
-
     }
 }

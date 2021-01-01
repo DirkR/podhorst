@@ -42,6 +42,9 @@ return [
     'Show episode' => 'Show episode',
     'Episode of ":title" on :date' => 'Episode of ":title" on :date',
 
+    "Recorded :label" => "Recorded :label",
+    "Error occured while recording an episode of \":label\"" => "Error occured while recording an episode of \":label\"",
+
 #    'Show' => 'Show',
     'Edit' => 'Edit',
     'Delete' => 'Delete',

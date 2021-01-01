@@ -52,7 +52,6 @@ class RecordingProcessor
                         'date' => $start_time->format(config('podhorst.date_format', 'Y-m-d')),
                     ]
                 ),
-                'published_at' => $start_time,
                 "slug" => $episode_slug,
             ]
         );
