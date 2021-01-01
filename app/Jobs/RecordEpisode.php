@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Episode;
+use App\Models\Show;
 use App\Services\RecordingProcessor;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -15,15 +15,15 @@ class RecordEpisode implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected Episode $episode;
+    protected Show $show;
 
-    public function __construct(Episode $episode)
+    public function __construct(Show $show)
     {
-        $this->episode = $episode->withoutRelations();
+        $this->show = $show->withoutRelations();
     }
 
     public function handle(RecordingProcessor $processor): void
     {
-        $processor->record($this->episode);
+        $processor->record($this->show);
     }
 }

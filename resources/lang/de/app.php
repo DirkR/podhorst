@@ -40,6 +40,7 @@ return [
     'Episodes' => 'Episoden',
     'Episode :label' => 'Episode :label',
     'Show episode' => 'Episode anzeigen',
+    'Episode of ":title" on :date' => 'Sendung ":title" vom :date',
 
 #    'Show' => 'Anzeigen',
     'Edit' => 'Bearbeiten',
