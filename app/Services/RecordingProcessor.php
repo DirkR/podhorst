@@ -42,14 +42,25 @@ class RecordingProcessor
             info("Error while accessing stream URL: $e");
         }
 
+        $formatted_start_time = $start_time->format(
+                config('podhorst.date_format', 'Y-m-d')
+        );
+
         /* @var \App\Models\Episode */
         $episode = $show->episodes()->create(
             [
                 "label" => __(
+                    "app.\":title\" on :date",
+                    [
+                        'title' => $show->label,
+                        'date' => $formatted_start_time,
+                    ]
+                ),
+                "description" => __(
                     "app.Episode of \":title\" on :date",
                     [
                         'title' => $show->label,
-                        'date' => $start_time->format(config('podhorst.date_format', 'Y-m-d')),
+                        'date' => $formatted_start_time,
                     ]
                 ),
                 "slug" => $episode_slug,

@@ -40,6 +40,7 @@ return [
     'Episodes' => 'Episodes',
     'Episode: :label' => 'Episode: :label',
     'Show episode' => 'Show episode',
+    '":title" on :date' => '":title" on :date',
     'Episode of ":title" on :date' => 'Episode of ":title" on :date',
 
     "Recorded :label" => "Recorded :label",
