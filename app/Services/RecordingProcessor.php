@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Episode;
 use App\Models\Show;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
@@ -16,12 +17,39 @@ class RecordingProcessor
     {
         $stream_url = StreamUrlResolver::resolve($show->station->stream_url);
 
-        $start_time = Carbon::now();
+        $start_time = $show->start_time();
         $end_time = $start_time->addMinutes($show->duration);
+
+        $formatted_start_time = $start_time->format(
+            config('podhorst.date_format', 'Y-m-d')
+        );
 
         $station_slug = $show->station->slug;
         $show_slug = $show->slug;
         $episode_slug = sprintf("%s-%s-%s.mp3", $station_slug, $show_slug, $start_time->format("Y-m-d-H-i"));
+
+
+        /* @var \App\Models\Episode */
+        $episode = $show->episodes()->create(
+            [
+                "label" => __(
+                    "app.\":title\" on :date",
+                    [
+                        'title' => $show->label,
+                        'date' => $formatted_start_time,
+                    ]
+                ),
+                "description" => __(
+                    "app.Episode of \":title\" on :date",
+                    [
+                        'title' => $show->label,
+                        'date' => $formatted_start_time,
+                    ]
+                ),
+                "slug" => $episode_slug,
+                "status" => Episode::PENDING,
+            ]
+        );
 
         $client = new Client(['stream' => true]);
 
@@ -42,31 +70,9 @@ class RecordingProcessor
             info("Error while accessing stream URL: $e");
         }
 
-        $formatted_start_time = $start_time->format(
-                config('podhorst.date_format', 'Y-m-d')
-        );
-
-        /* @var \App\Models\Episode */
-        $episode = $show->episodes()->create(
-            [
-                "label" => __(
-                    "app.\":title\" on :date",
-                    [
-                        'title' => $show->label,
-                        'date' => $formatted_start_time,
-                    ]
-                ),
-                "description" => __(
-                    "app.Episode of \":title\" on :date",
-                    [
-                        'title' => $show->label,
-                        'date' => $formatted_start_time,
-                    ]
-                ),
-                "slug" => $episode_slug,
-            ]
-        );
-
+        $episode->status = Episode::RECORDED;
+        $episode->save();
+        
         return $episode;
     }
 
