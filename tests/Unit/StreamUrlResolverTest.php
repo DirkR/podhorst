@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Services;
+namespace Tests\Unit;
 
 use App\Services\StreamUrlResolver;
 use Illuminate\Support\Facades\Http;
