@@ -19,6 +19,13 @@ class CreateShowsTable extends Migration
             $table->string('label', 60);
             $table->string('description')->nullable();
             $table->string('slug');
+            $table->boolean('active')->default(1);
+            $table->unsignedInteger('duration')->default(55);
+            $table->unsignedInteger('day')->default(7);
+            $table->unsignedInteger('hour')->default(0);
+            $table->unsignedInteger('minute')->default(5);
+            $table->string('homepage_url')->nullable();
+            $table->string('icon_url')->nullable();
             $table->timestamps();
         });
     }
