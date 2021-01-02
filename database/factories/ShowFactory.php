@@ -16,7 +16,7 @@ class ShowFactory extends Factory
             'slug' => $this->faker->name,
             'description' => $this->faker->paragraph,
 
-            'homapage_url' => $this->faker->unique()->url,
+            'homepage_url' => $this->faker->unique()->url,
             'icon_url' => $this->faker->unique()->url,
 
             'duration' => $this->faker->numberBetween(10, 117),
