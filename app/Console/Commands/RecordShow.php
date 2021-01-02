@@ -35,7 +35,7 @@ class RecordShow extends Command
         $episode = $processor->record($show);
         $return = 0;
 
-        if (!$episode) {
+        if ($episode) {
             $this->info(__("Recorded :label", ['label' => $episode->label]));
         } else {
             $this->warn(__("Error occured while recording an episode of \":label\"", ['label' => $show->label]));
