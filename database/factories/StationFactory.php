@@ -15,7 +15,7 @@ class StationFactory extends Factory
             'label' => $this->faker->name,
             'slug' => $this->faker->name,
             'description' => $this->faker->paragraph,
-            'homapage_url' => $this->faker->unique()->url,
+            'homepage_url' => $this->faker->unique()->url,
             'stream_url' => $this->faker->unique()->url,
             'icon_url' => $this->faker->unique()->url,
         ];

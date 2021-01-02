@@ -33,9 +33,14 @@ class Episode extends Model
 {
     use HasFactory;
 
+    const PENDING = 1;
+
+    const RECORDED = 2;
+
     protected $fillable = [
         'label',
         'description',
+        'status',
         'slug',
     ];
 

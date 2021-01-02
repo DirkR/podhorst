@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -76,6 +77,37 @@ class Show extends Model
     public function episodes()
     {
         return $this->hasMany(Episode::class);
+    }
+
+    /**
+     * Calculate the start time based on the time values of the Show object
+     *
+     * @return Carbon
+     */
+    public function start_time(): Carbon
+    {
+        $today = Carbon::today();
+        if ($this->day == $today->dayOfWeek) {
+            $day_offset = 0;
+        }
+        elseif ($this->day > $today->dayOfWeek) {
+            $day_offset = $today->dayOfWeek - $this->day;
+        }
+        else {
+            $day_offset = (7 - $today->dayOfWeek) + $this->day;
+        }
+
+        return $today->addDays($day_offset)->addHours($this->hour)->addMinutes($this->minute);
+    }
+
+    /**
+     * Calculate the end time based on the time values and duration of the Show object
+     *
+     * @return Carbon
+     */
+    public function end_time(): Carbon
+    {
+        return $this->start_time()->addMinutes($this->duration);
     }
 
 }
