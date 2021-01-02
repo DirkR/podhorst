@@ -24,7 +24,8 @@ class FindDueRecordings
 
     protected function findDueShows(Carbon $date): Collection
     {
-        $shows = Show::where('day', $date->format('N'))
+        $shows = Show::where('active', 1)
+            ->where('day', $date->format('N'))
             ->where('hour', $date->format('H'))
             ->get()
             ->filter(

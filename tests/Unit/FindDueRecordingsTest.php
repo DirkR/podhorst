@@ -29,6 +29,7 @@ class FindDueRecordingsTest extends TestCase
                     ->state(
                         new Sequence(
                             ['day' => $d, 'hour' => $h, 'minute' => $m],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'active' => false],
                             ['day' => $d, 'hour' => $h, 'minute' => $m + 1],
                             ['day' => $d, 'hour' => $h, 'minute' => $m - 1],
                             ['day' => $d, 'hour' => $h - 1, 'minute' => $m - 10],
@@ -62,6 +63,7 @@ class FindDueRecordingsTest extends TestCase
                     ->state(
                         new Sequence(
                             ['day' => $d, 'hour' => $h, 'minute' => $m],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'active' => false],
                             ['day' => $d, 'hour' => $h, 'minute' => $m + 1],
                             ['day' => $d, 'hour' => $h, 'minute' => $m - 1],
                             ['day' => $d, 'hour' => $h - 1, 'minute' => $m - 10],
