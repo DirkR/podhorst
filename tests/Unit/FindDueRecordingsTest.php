@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Models\Episode;
 use App\Models\Show;
 use App\Models\Station;
 use App\Services\FindDueRecordings;
@@ -29,51 +28,35 @@ class FindDueRecordingsTest extends TestCase
                     ->count(7)
                     ->state(
                         new Sequence(
-                            ['day' => $d, 'hour' => $h, 'minute' => $m],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'active' => false],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m + 1],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m - 1],
-                            ['day' => $d, 'hour' => $h - 1, 'minute' => $m - 10],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m + 10],
-                            ['day' => $d, 'hour' => $h + 5, 'minute' => $m],
-                            ['day' => $d + 1, 'hour' => $h, 'minute' => $m],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'duration' => 55, 'active' => false],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m + 1, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m - 1, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h - 1, 'minute' => $m - 10, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m + 10, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h + 2, 'minute' => $m, 'duration' => 55],
+                            ['day' => $d == 7 ? 1 : $d + 1, 'hour' => $h, 'minute' => $m, 'duration' => 55],
                         )
                     )
             )
             ->create();
 
-        /* @var Show $show */
-        $show = Show::where('day', $d)->where('hour', $h)->where('minute', $m)->first();
-        $e = $show->episodes()->create(
-            [
-                'label' => "foo",
-                'status' => Episode::PENDING,
-                'description' => "bar",
-                "slug" => sprintf(
-                    "%s-%s-%s.mp3",
-                    $show->station->slug,
-                    $show->slug,
-                    $show->start_time()->format("Y-m-d-H-i")
-                ),
-            ]
-        );
-
         $this->assertDatabaseCount('stations', 1);
         $this->assertDatabaseCount('shows', 7);
-        $this->assertDatabaseCount('episodes', 1);
+        $this->assertDatabaseCount('episodes', 0);
 
         $result = FindDueRecordings::find();
-        $this->assertEquals(2, $result->count());
+        $this->assertEquals(3, $result->count());
     }
 
 
     public function test_find_shows_at_time()
     {
-        $time = Carbon::today()->nextWeekday()->addHours(2)->addMinutes(23);
+        $date = Carbon::today()->nextWeekday()->addHours(2)->addMinutes(23);
 
-        $d = $time->dayOfWeek;
-        $h = $time->hour;
-        $m = $time->minute;
+        $d = $date->dayOfWeek;
+        $h = $date->hour;
+        $m = $date->minute;
 
         Station::factory()
             ->has(
@@ -81,40 +64,38 @@ class FindDueRecordingsTest extends TestCase
                     ->count(7)
                     ->state(
                         new Sequence(
-                            ['day' => $d, 'hour' => $h, 'minute' => $m],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'active' => false],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m + 1],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m - 1],
-                            ['day' => $d, 'hour' => $h - 1, 'minute' => $m - 10],
-                            ['day' => $d, 'hour' => $h, 'minute' => $m + 10],
-                            ['day' => $d, 'hour' => $h + 5, 'minute' => $m],
-                            ['day' => $d == 7 ? 1 : $d - 1, 'hour' => $h, 'minute' => $m],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m, 'duration' => 55, 'active' => false],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m + 1, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m - 1, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h - 1, 'minute' => $m - 10, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h, 'minute' => $m + 10, 'duration' => 55],
+                            ['day' => $d, 'hour' => $h + 5, 'minute' => $m, 'duration' => 55],
+                            ['day' => $d == 7 ? 1 : $d - 1, 'hour' => $h, 'minute' => $m, 'duration' => 55],
                         )
                     )
             )
             ->create();
 
-        /* @var Show $show */
-        $show = Show::where('day', $d)->where('hour', $h)->where('minute', $m)->first();
-        $e = $show->episodes()->create(
-            [
-                'label' => "foo",
-                'status' => Episode::PENDING,
-                'description' => "bar",
-                "slug" => sprintf(
-                    "%s-%s-%s.mp3",
-                    $show->station->slug,
-                    $show->slug,
-                    $show->start_time()->format("Y-m-d-H-i")
-                ),
-            ]
+        Show::all()->each(
+            function ($show) {
+                print("[id={$show->id}, day={$show->day}, hour={$show->hour}, minute={$show->minute}, duration={$show->duration}, active={$show->active}, next_recording_at={$show->next_recording_at}]\n");
+            }
         );
 
         $this->assertDatabaseCount('stations', 1);
         $this->assertDatabaseCount('shows', 7);
-        $this->assertDatabaseCount('episodes', 1);
+        $this->assertDatabaseCount('episodes', 0);
 
-        $result = FindDueRecordings::findAt($time);
-        $this->assertEquals(2, $result->count());
+        $result = FindDueRecordings::findAt($date);
+
+        print("date=$date\n");
+        $result->each(
+            function ($show) {
+                print("[id={$show->id}, day={$show->day}, hour={$show->hour}, minute={$show->minute}, duration={$show->duration}, active={$show->active}, next_recording_at={$show->next_recording_at}]\n");
+            }
+        );
+
+        $this->assertEquals(3, $result->count());
     }
 }

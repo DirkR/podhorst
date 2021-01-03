@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $slug
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $next_recording_at
  * @property int $active
  * @property int $duration
  * @property int $day
@@ -61,7 +62,17 @@ class Show extends Model
         'hour',
         'minute',
         'active',
+        'next_recording_at',
     ];
+
+    protected static function booted()
+    {
+        static::saving(
+            function ($show) {
+                $show->next_recording_at = $show->start_time();
+            }
+        );
+    }
 
     /**
      * Get the post that owns the comment.
@@ -87,14 +98,17 @@ class Show extends Model
     public function start_time(): Carbon
     {
         $today = Carbon::today();
-        if ($this->day == $today->dayOfWeek) {
+        $dayOfWeek = $today->dayOfWeek;
+        if ($dayOfWeek === 0) {
+            $dayOfWeek = 7;
+        }
+
+        if ($this->day == $dayOfWeek) {
             $day_offset = 0;
-        }
-        elseif ($this->day > $today->dayOfWeek) {
-            $day_offset = $today->dayOfWeek - $this->day;
-        }
-        else {
-            $day_offset = (7 - $today->dayOfWeek) + $this->day;
+        } elseif ($this->day > $dayOfWeek && $dayOfWeek !== 7) {
+            $day_offset = $dayOfWeek - $this->day;
+        } else {
+            $day_offset = (7 - $dayOfWeek) + $this->day;
         }
 
         return $today->addDays($day_offset)->addHours($this->hour)->addMinutes($this->minute);
