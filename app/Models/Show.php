@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $slug
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $next_recording_at
  * @property int $active
  * @property int $duration
  * @property int $day
@@ -60,7 +62,17 @@ class Show extends Model
         'hour',
         'minute',
         'active',
+        'next_recording_at',
     ];
+
+    protected static function booted()
+    {
+        static::saving(
+            function ($show) {
+                $show->next_recording_at = $show->start_time();
+            }
+        );
+    }
 
     /**
      * Get the post that owns the comment.
@@ -76,6 +88,42 @@ class Show extends Model
     public function episodes()
     {
         return $this->hasMany(Episode::class);
+    }
+
+    /**
+     * Calculate the start time based on the time values of the Show object
+     *
+     * @return Carbon
+     */
+    public function start_time(): Carbon
+    {
+        $today = Carbon::today();
+        $dayOfWeek = $today->dayOfWeek;
+        if ($dayOfWeek === 0) {
+            $dayOfWeek = 7;
+        }
+
+        if ($this->day == $dayOfWeek) {
+            $started_at = Carbon::today()->addHours($this->hour)->addMinutes($this->minute);
+            $now = Carbon::now();
+            $day_offset = ($now < $started_at) ? 0 : 7;
+        } elseif ($this->day > $dayOfWeek && $dayOfWeek !== 7) {
+            $day_offset = $dayOfWeek - $this->day;
+        } else {
+            $day_offset = (7 - $dayOfWeek) + $this->day;
+        }
+
+        return $today->addDays($day_offset)->addHours($this->hour)->addMinutes($this->minute);
+    }
+
+    /**
+     * Calculate the end time based on the time values and duration of the Show object
+     *
+     * @return Carbon
+     */
+    public function end_time(): Carbon
+    {
+        return $this->start_time()->addMinutes($this->duration);
     }
 
 }

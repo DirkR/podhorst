@@ -18,7 +18,9 @@ class CreateStationsTable extends Migration
             $table->string('label', 60);
             $table->string('description')->nullable();
             $table->string('slug');
-            $table->string('url');
+            $table->string('homepage_url');
+            $table->string('stream_url');
+            $table->string('icon_url')->nullable();
             $table->timestamps();
         });
     }

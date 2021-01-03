@@ -13,13 +13,13 @@ class ShowFactory extends Factory
     {
         return [
             'label' => $this->faker->name,
-            'slug' => $this->faker->name,
+            'slug' => $this->faker->word,
             'description' => $this->faker->paragraph,
 
-            'homapage_url' => $this->faker->unique()->url,
+            'homepage_url' => $this->faker->unique()->url,
             'icon_url' => $this->faker->unique()->url,
 
-            'duration' => $this->faker->numberBetween(10, 117),
+            'duration' => $this->faker->numberBetween(18, 57),
             'day' => $this->faker->numberBetween(1, 7),
             'hour' => $this->faker->numberBetween(0, 23),
             'minute' => $this->faker->numberBetween(3, 45),
