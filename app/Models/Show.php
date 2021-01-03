@@ -104,7 +104,9 @@ class Show extends Model
         }
 
         if ($this->day == $dayOfWeek) {
-            $day_offset = 0;
+            $started_at = Carbon::today()->addHours($this->hour)->addMinutes($this->minute);
+            $now = Carbon::now();
+            $day_offset = ($now < $started_at) ? 0 : 7;
         } elseif ($this->day > $dayOfWeek && $dayOfWeek !== 7) {
             $day_offset = $dayOfWeek - $this->day;
         } else {

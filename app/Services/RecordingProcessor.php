@@ -18,7 +18,13 @@ class RecordingProcessor
         $stream_url = StreamUrlResolver::resolve($show->station->stream_url);
 
         $start_time = $show->start_time();
-        $end_time = $start_time->addMinutes($show->duration);
+        $end_time = $show->end_time();
+
+        {
+            // Wait a second and calculate the Show::next_recording_at date
+            sleep(1);
+            $show->save();
+        }
 
         $formatted_start_time = $start_time->format(
             config('podhorst.date_format', 'Y-m-d')
@@ -27,7 +33,6 @@ class RecordingProcessor
         $station_slug = $show->station->slug;
         $show_slug = $show->slug;
         $episode_slug = sprintf("%s-%s-%s.mp3", $station_slug, $show_slug, $start_time->format("Y-m-d-H-i"));
-
 
         /* @var \App\Models\Episode */
         $episode = $show->episodes()->create(
@@ -72,7 +77,7 @@ class RecordingProcessor
 
         $episode->status = Episode::RECORDED;
         $episode->save();
-        
+
         return $episode;
     }
 
