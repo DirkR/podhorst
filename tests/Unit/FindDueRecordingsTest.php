@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Episode;
 use App\Models\Show;
 use App\Models\Station;
 use App\Services\FindDueRecordings;
@@ -41,7 +42,25 @@ class FindDueRecordingsTest extends TestCase
             )
             ->create();
 
+        /* @var Show $show */
+        $show = Show::where('day', $d)->where('hour', $h)->where('minute', $m)->first();
+        $e = $show->episodes()->create(
+            [
+                'label' => "foo",
+                'status' => Episode::PENDING,
+                'description' => "bar",
+                "slug" => sprintf(
+                    "%s-%s-%s.mp3",
+                    $show->station->slug,
+                    $show->slug,
+                    $show->start_time()->format("Y-m-d-H-i")
+                ),
+            ]
+        );
+
+        $this->assertDatabaseCount('stations', 1);
         $this->assertDatabaseCount('shows', 7);
+        $this->assertDatabaseCount('episodes', 1);
 
         $result = FindDueRecordings::find();
         $this->assertEquals(2, $result->count());
@@ -75,7 +94,25 @@ class FindDueRecordingsTest extends TestCase
             )
             ->create();
 
+        /* @var Show $show */
+        $show = Show::where('day', $d)->where('hour', $h)->where('minute', $m)->first();
+        $e = $show->episodes()->create(
+            [
+                'label' => "foo",
+                'status' => Episode::PENDING,
+                'description' => "bar",
+                "slug" => sprintf(
+                    "%s-%s-%s.mp3",
+                    $show->station->slug,
+                    $show->slug,
+                    $show->start_time()->format("Y-m-d-H-i")
+                ),
+            ]
+        );
+
+        $this->assertDatabaseCount('stations', 1);
         $this->assertDatabaseCount('shows', 7);
+        $this->assertDatabaseCount('episodes', 1);
 
         $result = FindDueRecordings::findAt($time);
         $this->assertEquals(2, $result->count());
