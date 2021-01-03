@@ -7,7 +7,7 @@
      xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>{{ $feed->title }} - {{ config('app.name', 'podhorst') }}</title>
-        <link>{{ $feed->linkhomepage_url }}</link>
+        <link>{{ $feed->homepage_url }}</link>
         <description>{{ $feed->description }}".</description>
         <lastBuildDate>{{ $feed->published_at }}</lastBuildDate>
         <image>
@@ -23,8 +23,8 @@
         <item>
             <title>{{ $item->title }}</title>
             <link>{{ $item->link }}</link>
-            <pubDate>{{ $item->published_at }}</pubDate>
-            <author>{{ $item->author }}</author>
+            <pubDate>{{ $item->created_at }}</pubDate>
+            <author>{{  $item->station ? $item->station->label : "Unknown" }}</author>
             <guid isPermaLink="false">{{ $item->slug }}</guid>
             <description><![CDATA[Show: {{ $item->label }}<br>Copyright: <a
                     href="{{ $item->link }}">{{ $item->author }}</a>]]>

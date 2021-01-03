@@ -19,7 +19,7 @@ class PodcastFeedController extends Controller
             [
                 'title' => 'All recordings',
                 'description' => config('podhorst.description'),
-                'link' => config('podhorst'),
+                'link' => '',
                 'image' => config('podhorst.default_logo.url'),
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
@@ -84,14 +84,14 @@ class PodcastFeedController extends Controller
     public function createItemsList(Collection $episodes): Collection
     {
         return $episodes->map(
-            function ($episode) {
+            function (Episode $episode) {
                 return FeedItem::create(
                     [
                         'title' => $episode->label,
                         'description' => $episode->description,
-                        'author' => $episode->station->label,
+                        'author' => $episode->station ? $episode->station->label : "Unknown",
                         'filesize' => 0,
-                        #'publish_at' => $episode->publish_at,
+                        'publish_at' => $episode->created_at->format(config('podhorst.datetime_format')),
                         'guid' => route('episode.show', $episode->slug),
                         //'url' => $episode->media->url(),
                         //'type' => $episode->media_content_type,
