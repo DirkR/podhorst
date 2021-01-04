@@ -7,13 +7,15 @@ use App\DataObjects\FeedItem;
 use App\Models\Episode;
 use App\Models\Station;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class PodcastFeedController extends Controller
 {
     public function allFeed(Request $request)
     {
-        $episodes = Episode::all();
+        $episodes = Episode::all()->sortByDesc('created_at');
+        $newest_item = Arr::first($episodes);
 
         $feed = Feed::create(
             [
@@ -24,6 +26,7 @@ class PodcastFeedController extends Controller
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
                 'category' => 'Miscellanious',
+                'last_build_date' => $newest_item->created_at->format('r'),
                 'language' => config('podhorst.language'),
                 'copyright' => date('Y') . ' ' . config('podhorst.copyright'),
             ]
@@ -37,6 +40,8 @@ class PodcastFeedController extends Controller
     public function stationFeed(Request $request, string $station_slug)
     {
         $station = Station::where('slug', $station_slug)->first();
+        $episodes = $station->episodes->sortByDesc('created_at');
+        $newest_item = Arr::first($episodes);
 
         $feed = Feed::create(
             [
@@ -47,12 +52,13 @@ class PodcastFeedController extends Controller
                 'author' => $station->label,
                 'email' => config('podhorst.email'),
                 'category' => 'Miscellanious',
+                'last_build_date' => $newest_item->created_at->format('r'),
                 'language' => config('podhorst.language'),
                 'copyright' => date('Y') . ' ' . config('podhorst.copyright'),
             ]
         );
 
-        $items = $this->createItemsList($station->episodes);
+        $items = $this->createItemsList($episodes);
 
         return view('feed.feed', compact('feed', 'items'));
     }
@@ -62,21 +68,25 @@ class PodcastFeedController extends Controller
         $station = Station::where('slug', $station_slug)->first();
         $show = $station->shows->where('slug', $show_slug)->first();
 
+        $episodes = $show->episodes->sortByDesc('created_at');
+        $newest_item = Arr::first($episodes);
+
         $feed = Feed::create(
             [
                 'title' => 'All About Everything',
                 'description' => 'Great site description',
-                'link' => $show->homepage_url,
-                'image' => config('podhorst.default_logo.url'),
+                'link' => $show->homepage_url ?? $station->homepage_url,
+                'image' => $show->icon_url ?? $station->icon_url ?? config('podhorst.default_logo.url'),
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
                 'category' => 'Miscellanious',
+                'last_build_date' => $newest_item->created_at->format('r'),
                 'language' => config('podhorst.language'),
                 'copyright' => date('Y') . ' ' . config('podhorst.copyright'),
             ]
         );
 
-        $items = $this->createItemsList($show->episodes);
+        $items = $this->createItemsList($episodes);
 
         return view('feed.feed', compact('feed', 'items'));
     }
@@ -87,16 +97,17 @@ class PodcastFeedController extends Controller
             function (Episode $episode) {
                 return FeedItem::create(
                     [
-                        'title' => $episode->label,
+                        'title' => $episode->show->label . ', ' . $episode->created_at->format(config('podhorst.date_format', 'd.m.Y')),
                         'description' => $episode->description,
                         'author' => $episode->station ? $episode->station->label : "Unknown",
                         'filesize' => 0,
-                        'publish_at' => $episode->created_at->format(config('podhorst.datetime_format')),
-                        'guid' => route('episode.show', $episode->slug),
-                        //'url' => $episode->media->url(),
-                        //'type' => $episode->media_content_type,
+                        'mimetype' => 'audio/mpeg', #$episode->media_content_type,
+                        'publish_at' => $episode->created_at->format('r'),
+                        'guid' => $episode->slug,
+                        'url' => sprintf("/%s/%s/%s", $episode->station->slug,  $episode->show->slug,  $episode->slug),
                         'duration' => $episode->show->duration,
-                        'image' => $episode->show->icon_url,
+                        'image' => $episode->show->icon_url ?? $episode->station->icon_url,
+                        'link' => $episode->show->homepage_url ?? $episode->station->homepage_url,
                     ]
                 );
             }

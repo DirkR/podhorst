@@ -21,6 +21,7 @@ class Feed
             'category',
             'language',
             'copyright',
+            'last_build_date',
         ];
 
         $instance = new Feed();

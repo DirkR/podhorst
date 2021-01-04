@@ -22,6 +22,8 @@ class FeedItem
             'type',
             'duration',
             'image',
+            'mimetype',
+            'url',
         ];
 
         $instance = new FeedItem();
