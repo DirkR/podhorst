@@ -79,7 +79,6 @@ class ShowController extends Controller
         $show->duration = intval($request->input('duration-minute', 0)) +
             intval($request->input('duration-hour', 0)) * 60;
 
-
         if ($url = $request->input('homepage_url')) {
             $show->homepage_url = $url;
         }
