@@ -77,24 +77,11 @@ class FindDueRecordingsTest extends TestCase
             )
             ->create();
 
-        Show::all()->each(
-            function ($show) {
-                print("[id={$show->id}, day={$show->day}, hour={$show->hour}, minute={$show->minute}, duration={$show->duration}, active={$show->active}, next_recording_at={$show->next_recording_at}]\n");
-            }
-        );
-
         $this->assertDatabaseCount('stations', 1);
         $this->assertDatabaseCount('shows', 7);
         $this->assertDatabaseCount('episodes', 0);
 
         $result = FindDueRecordings::findAt($date);
-
-        print("date=$date\n");
-        $result->each(
-            function ($show) {
-                print("[id={$show->id}, day={$show->day}, hour={$show->hour}, minute={$show->minute}, duration={$show->duration}, active={$show->active}, next_recording_at={$show->next_recording_at}]\n");
-            }
-        );
 
         $this->assertEquals(3, $result->count());
     }

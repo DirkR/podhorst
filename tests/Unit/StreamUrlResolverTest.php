@@ -24,6 +24,11 @@ class StreamUrlResolverTest extends TestCase
                     200,
                     ["Content-Type" => "audio/x-mpegurl"]
                 ),
+                'example.org/stream.pls' => Http::response(
+                    "[playlist]File\nFile1=http://example.org/stream.mp3\nTitle1=Name of the feed\nNumberOfEntries=1\nLength=-1\n",
+                    200,
+                    ["Content-Type" => "audio/x-scpls"]
+                ),
                 'example.org/stream.mp3' => Http::response(
                     'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy',
                     200,
@@ -39,6 +44,15 @@ class StreamUrlResolverTest extends TestCase
         $stream_url = "http://example.org/stream.mp3";
 
         $result = StreamUrlResolver::resolve($stream_url);
+        $this->assertEquals($stream_url, $result);
+    }
+
+    public function test_pls_url()
+    {
+        $pls_url = "http://example.org/stream.pls";
+        $stream_url = "http://example.org/stream.mp3";
+
+        $result = StreamUrlResolver::resolve($pls_url);
         $this->assertEquals($stream_url, $result);
     }
 

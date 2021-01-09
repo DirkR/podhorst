@@ -3,6 +3,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -26,6 +27,9 @@ class StreamUrlResolver
             case "audio/x-mpegurl":
                 return $this->getStreamURLFromM3u($stream_url);
 
+            case "audio/x-scpls":
+                return $this->getStreamURLFromPls($stream_url);
+
             case "audio/mpeg":
                 return $stream_url;
         }
@@ -42,5 +46,22 @@ class StreamUrlResolver
                 }
             )
             ->first();
+    }
+
+    private function getStreamURLFromPls($pls_url)
+    {
+        $response = Http::get($pls_url);
+        return collect(explode("\n", $response->body()))
+            ->filter(
+                function ($line) {
+                    return Str::startsWith(Str::lower($line), "file");
+                }
+            )
+            ->map(function ($line) {
+                return preg_replace('/^.*File[0-9]*=/', '', $line);
+            })
+            ->shuffle()
+            ->first();
+
     }
 }
