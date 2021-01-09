@@ -9,6 +9,7 @@ use App\Models\Station;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class PodcastFeedController extends Controller
 {
@@ -95,16 +96,21 @@ class PodcastFeedController extends Controller
     {
         return $episodes->map(
             function (Episode $episode) {
+                if ($episode->filesize === 0) {
+                    $episode->filesize = Storage::disk('public')->size($episode->slug);
+                }
                 return FeedItem::create(
                     [
-                        'title' => $episode->show->label . ', ' . $episode->created_at->format(config('podhorst.date_format', 'd.m.Y')),
+                        'title' => $episode->show->label . ', ' . $episode->created_at->format(
+                                config('podhorst.date_format', 'd.m.Y')
+                            ),
                         'description' => $episode->description,
                         'author' => $episode->station ? $episode->station->label : "Unknown",
-                        'filesize' => 0,
-                        'mimetype' => 'audio/mpeg', #$episode->media_content_type,
+                        'filesize' => $episode->filesize,
+                        'mimetype' => $episode->mimetype,
                         'publish_at' => $episode->created_at->format('r'),
                         'guid' => $episode->slug,
-                        'url' => sprintf("/%s/%s/%s", $episode->station->slug,  $episode->show->slug,  $episode->slug),
+                        'url' => sprintf("/public/storage/%s", $episode->slug),
                         'duration' => $episode->show->duration,
                         'image' => $episode->show->icon_url ?? $episode->station->icon_url,
                         'link' => $episode->show->homepage_url ?? $episode->station->homepage_url,

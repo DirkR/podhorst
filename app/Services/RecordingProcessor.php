@@ -8,6 +8,8 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class RecordingProcessor
@@ -17,8 +19,8 @@ class RecordingProcessor
     {
         $stream_url = StreamUrlResolver::resolve($show->station->stream_url);
 
-        $start_time = $show->start_time();
-        $end_time = $show->end_time();
+        $start_time = Carbon::now();
+        $end_time = $start_time->addMinutes($show->duration);
 
         {
             // Wait a second and calculate the Show::next_recording_at date
@@ -34,7 +36,7 @@ class RecordingProcessor
         $show_slug = $show->slug;
         $episode_slug = sprintf("%s-%s-%s.mp3", $station_slug, $show_slug, $start_time->format("Y-m-d-H-i"));
 
-        /* @var \App\Models\Episode */
+        /* @var Episode $episode */
         $episode = $show->episodes()->create(
             [
                 "label" => __(
@@ -60,6 +62,8 @@ class RecordingProcessor
 
         try {
             $response = $client->get($stream_url);
+            $episode->mimetype = Arr::first($response->getHeader( 'Content-Type'));
+
             $body = $response->getBody();
             while (!$body->eof()) {
                 Storage::disk('public')->append(
@@ -67,15 +71,17 @@ class RecordingProcessor
                     $body->read(10240)
                 );
 
-                if ($end_time->lessThan(Carbon::now())) {
+                if (Carbon::now()->greaterThan($end_time)) {
                     break;
                 }
             }
         } catch (GuzzleException $e) {
-            info("Error while accessing stream URL: $e");
+            Log::warning("Error while accessing stream URL: $e");
         }
 
+        $episode->duration = Carbon::now()->diffInMinutes($start_time);
         $episode->status = Episode::RECORDED;
+        $episode->filesize = Storage::disk('public')->size($episode_slug);
         $episode->save();
 
         return $episode;

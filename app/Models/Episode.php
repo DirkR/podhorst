@@ -13,6 +13,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $label
  * @property string|null $description
  * @property string $slug
+ * @property string $mimetype
+ * @property int $status
+ * @property int $duration
+ * @property int $filesize
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Show $show
@@ -42,6 +46,9 @@ class Episode extends Model
         'description',
         'status',
         'slug',
+        'mimetype',
+        'duration',
+        'filesize',
     ];
 
     /**
