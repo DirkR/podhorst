@@ -3,6 +3,7 @@
 return [
     'title' => 'All my radio recordings',
     'description' => 'Meine privaten Radiorecordings',
+    'base_url' => env('APP_URL', "https://example.org"),
 
     'copyright' => 'diverse radio stations',
     'author' => 'Dirk Ruediger',

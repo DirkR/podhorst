@@ -22,7 +22,7 @@ class PodcastFeedController extends Controller
             [
                 'title' => 'All recordings',
                 'description' => config('podhorst.description'),
-                'link' => '',
+                'link' => config('podhorst.base_url'),
                 'image' => config('podhorst.default_logo.url'),
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
@@ -48,7 +48,7 @@ class PodcastFeedController extends Controller
             [
                 'title' => $station->label,
                 'description' => $station->description,
-                'link' => $station->homepage_url,
+                'link' => $station->homepage_url ?? config('podhorst.base_url'),
                 'image' => $station->icon_url,
                 'author' => $station->label,
                 'email' => config('podhorst.email'),
@@ -76,7 +76,7 @@ class PodcastFeedController extends Controller
             [
                 'title' => 'All About Everything',
                 'description' => 'Great site description',
-                'link' => $show->homepage_url ?? $station->homepage_url,
+                'link' => $show->homepage_url ?? $station->homepage_url ?? config('podhorst.base_url'),
                 'image' => $show->icon_url ?? $station->icon_url ?? config('podhorst.default_logo.url'),
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
@@ -96,7 +96,7 @@ class PodcastFeedController extends Controller
     {
         return $episodes->map(
             function (Episode $episode) {
-                if ($episode->filesize === 0) {
+                if ($episode->filesize === 0 && Storage::disk('public')->exists($episode->slug)) {
                     $episode->filesize = Storage::disk('public')->size($episode->slug);
                 }
                 return FeedItem::create(
@@ -110,7 +110,7 @@ class PodcastFeedController extends Controller
                         'mimetype' => $episode->mimetype,
                         'publish_at' => $episode->created_at->format('r'),
                         'guid' => $episode->slug,
-                        'url' => sprintf("/public/storage/%s", $episode->slug),
+                        'url' => sprintf("%s/public/storage/%s", config('podhorst.base_url'), $episode->slug),
                         'duration' => $episode->show->duration,
                         'image' => $episode->show->icon_url ?? $episode->station->icon_url,
                         'link' => $episode->show->homepage_url ?? $episode->station->homepage_url,
