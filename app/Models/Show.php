@@ -65,6 +65,10 @@ class Show extends Model
         'next_recording_at',
     ];
 
+    protected $casts = [
+        'next_recording_at' => 'datetime',
+    ];
+
     protected static function booted()
     {
         static::saving(

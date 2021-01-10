@@ -7,7 +7,10 @@ return [
     'Operations' => 'Operations',
 
     'Dashboard' => 'Dashboard',
+    'Upcoming' => 'Upcoming',
     'Recordings' => 'Recordings',
+    'Next recordings' => 'Next recordings',
+    'No upcoming recordings' => 'No upcoming recordings',
 
     'Slug' => 'Slug',
     'Homepage' => 'Homepage',
