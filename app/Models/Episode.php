@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * App\Models\Episode
@@ -68,6 +69,17 @@ class Episode extends Model
             'id',
             'show_id',
             'station_id'
+        );
+    }
+
+    protected static function booted()
+    {
+        static::deleting(
+            function ($episode) {
+                if (Storage::disk('public')->exists($episode->slug)) {
+                    Storage::disk('public')->delete($episode->slug);
+                }
+            }
         );
     }
 }
