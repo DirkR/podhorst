@@ -11,6 +11,8 @@ return [
     'Recordings' => 'Recordings',
     'Next recordings' => 'Next recordings',
     'No upcoming recordings' => 'No upcoming recordings',
+    'Recorded episodes' => 'Recorded episodes',
+    'No recorded episodes' => 'No recorded episodes',
 
     'Slug' => 'Slug',
     'Homepage' => 'Homepage',

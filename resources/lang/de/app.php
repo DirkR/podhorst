@@ -11,6 +11,8 @@ return [
     'Recordings' => 'Aufnahmen',
     'Next recordings' => 'Nächste Aufnahmen',
     'No upcoming recordings' => 'Keine nächsten Aufnahmen',
+    'Recorded episodes' => 'Aufgenommene Episoden',
+    'No recorded episodes' => 'Keine aufgenommenen Episoden',
 
     'Slug' => 'Pfad',
     'Homepage' => 'Website',
