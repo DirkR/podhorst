@@ -22,13 +22,12 @@
                         {{ __('app.Stations') }}
                     </x-jet-nav-link>
                 </div>
-
+-->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('show.index') }}" :active="request()->routeIs('shows.index')">
-                        {{ __('app.Shows') }}
+                    <x-jet-nav-link href="{{ route('upcoming') }}" :active="request()->routeIs('shows.index')">
+                        {{ __('app.Upcoming') }}
                     </x-jet-nav-link>
                 </div>
--->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('episode.index') }}" :active="request()->routeIs('episodes.index')">
                         {{ __('app.Recordings') }}

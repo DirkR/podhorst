@@ -30,6 +30,7 @@ Route::name('feed.')->group(function () {
     Route::get('{station}/{show}/feed', [PodcastFeedController::class, 'showFeed'])->name('show');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])
-    ->get('dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('upcoming', [DashboardController::class, 'upcoming'])->name('upcoming');
+});

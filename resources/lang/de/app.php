@@ -7,7 +7,10 @@ return [
     'Operations' => 'Aktionen',
 
     'Dashboard' => 'Übersicht',
+    'Upcoming' => 'Bevorstehende Aufnahmen',
     'Recordings' => 'Aufnahmen',
+    'Next recordings' => 'Nächste Aufnahmen',
+    'No upcoming recordings' => 'Keine nächsten Aufnahmen',
 
     'Slug' => 'Pfad',
     'Homepage' => 'Website',
