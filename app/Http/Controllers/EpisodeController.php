@@ -9,7 +9,7 @@ class EpisodeController extends Controller
 
     public function index()
     {
-        $episodes = Episode::all();
+        $episodes = Episode::orderByDesc('created_at')->get();
         return view("episode.list", compact('episodes'));
     }
 
