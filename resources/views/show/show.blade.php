@@ -10,7 +10,7 @@
             <div class="flex flex-row w-full">
                 <div class="w-1/5">
                     @if($show->icon_url)
-                        <img class="w-40 h-40" src="{{$station->icon_url}}" alt="@lang('app.Station') Logo">
+                        <img class="w-40 h-40" src="{{$show->icon_url}}" alt="@lang('app.Show') Logo">
                     @elseif($show->station->icon_url)
                         <img class="w-40 h-40" src="{{$show->station->icon_url}}" alt="@lang('app.Station') Logo">
                     @else
