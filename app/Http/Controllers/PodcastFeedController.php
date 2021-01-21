@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Carbon;
 
 class PodcastFeedController extends Controller
 {
@@ -81,7 +82,7 @@ class PodcastFeedController extends Controller
                 'author' => config('podhorst.author'),
                 'email' => config('podhorst.email'),
                 'category' => 'Miscellanious',
-                'last_build_date' => $newest_item->created_at->format('r'),
+                'last_build_date' => ($newest_item ? $newest_item->created_at :  Carbon::now())->format('r'),
                 'language' => config('podhorst.language'),
                 'copyright' => date('Y') . ' ' . config('podhorst.copyright'),
             ]
@@ -99,6 +100,7 @@ class PodcastFeedController extends Controller
                 if ($episode->filesize === 0 && Storage::disk('public')->exists($episode->slug)) {
                     $episode->filesize = Storage::disk('public')->size($episode->slug);
                 }
+                $duration = $episode->updated_at->diff($episode->created_at)->format('%H:%I:%S.000');
                 return FeedItem::create(
                     [
                         'title' => $episode->show->label . ', ' . $episode->created_at->format(
@@ -110,8 +112,8 @@ class PodcastFeedController extends Controller
                         'mimetype' => $episode->mimetype,
                         'publish_at' => $episode->created_at->format('r'),
                         'guid' => $episode->slug,
-                        'url' => sprintf("%s/public/storage/%s", config('podhorst.base_url'), $episode->slug),
-                        'duration' => $episode->show->duration,
+                        'url' => sprintf("%s/storage/%s", config('podhorst.base_url'), $episode->slug),
+                        'duration' => $duration, # $episode->show->duration,
                         'image' => $episode->show->icon_url ?? $episode->station->icon_url,
                         'link' => $episode->show->homepage_url ?? $episode->station->homepage_url,
                     ]
