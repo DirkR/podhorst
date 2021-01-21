@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Episode') }}: {{$episode->label}}
+            @lang('app.Episode: :label', ['label' => $episode->label])
         </h2>
     </x-slot>
 
-    <div class="max-w-lg my-3 mx-3 rounded overflow-hidden shadow-lg">
-        <div class="px-6 py-4">
-            <div class="font-bold text-xl mb-2">{{$episode->label}}</div>
-            <p class="text-gray-700 text-base">{{$episode->description}}</p>
-            <hr>
-            <button href="#" class="btn btn-primary">Go somewhere</button>
-        </div>
+    <div class="w-5/6 sm:w-full xl:w-2/3 m-auto my-8">
+        <p class="card-text">{{$episode->description}}</p>
+
+        <x-inputs.buttongroup>
+            <a href="{{ URL::previous() }}" class="btn btn-primary">@lang('app.Back to list')</a>
+        </x-inputs.buttongroup>
     </div>
 </x-app-layout>

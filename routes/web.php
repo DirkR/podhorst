@@ -11,16 +11,26 @@
 |
 */
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PodcastFeedController;
+
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::resource('/stations', 'StationController');
-    Route::resource('/shows', 'ShowController');
-    Route::resource('/episodes', 'EpisodeController');
+    Route::resource('station', 'StationController');
+    Route::resource('show', 'ShowController');
+    Route::resource('episode', 'EpisodeController')->only(['index', 'show']);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::name('feed.')->group(function () {
+    Route::get('feed', [PodcastFeedController::class, 'allFeed'])->name('all');
+    Route::get('{station}/feed', [PodcastFeedController::class, 'stationFeed'])->name('station');
+    Route::get('{station}/{show}/feed', [PodcastFeedController::class, 'showFeed'])->name('show');
+});
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('upcoming', [DashboardController::class, 'upcoming'])->name('upcoming');
+});

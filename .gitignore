@@ -1,6 +1,3 @@
-/node_modules
-/public/hot
-/public/storage
 /storage/*.key
 /vendor
 /composer.lock
@@ -13,7 +10,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/public/css/app.css
-/public/js/app.js
+/node_modules
+/public/css
+/public/js
+/public/storage
 /public/mix-manifest.json
 .DS_Store

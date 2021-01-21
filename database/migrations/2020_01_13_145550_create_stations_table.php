@@ -14,11 +14,13 @@ class CreateStationsTable extends Migration
     public function up()
     {
         Schema::create('stations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('label', 60);
             $table->string('description')->nullable();
             $table->string('slug');
-            $table->string('url');
+            $table->string('homepage_url');
+            $table->string('stream_url');
+            $table->string('icon_url')->nullable();
             $table->timestamps();
         });
     }

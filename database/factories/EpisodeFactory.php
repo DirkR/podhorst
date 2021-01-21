@@ -13,7 +13,10 @@ class EpisodeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'label' => $this->faker->name,
+            'slug' => $this->faker->name,
+            'description' => $this->faker->paragraph,
+            'status' => Episode::PENDING,
         ];
     }
 }

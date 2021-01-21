@@ -26,6 +26,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('podhorst:check')
+            ->everyMinute();
+
+        $schedule->command('podhorst:cleanup')
+            ->daily();
     }
 
     /**

@@ -8,78 +8,90 @@ use Illuminate\Http\Request;
 
 class ShowController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $shows = Show::get();
-        return view("show.list", ['shows' => $shows]);
+        $shows = Show::all();
+        return view("show.list", compact('shows'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $stations = Station::all()->pluck('label', 'id');
+        $station_id = request()->input('station', $stations->keys()->first());
+
+        return view("show.create", compact('stations', 'station_id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $data = $request->only(
+            [
+                'station_id',
+                'label',
+                'description',
+                'slug',
+                'homepage_url',
+                'icon_url',
+                'day',
+                'time-hour',
+                'time-minute',
+                'duration-hour',
+                'duration-minute',
+                'active',
+            ]
+        );
+
+        $data['hour'] = $data['time-hour'];
+        $data['minute'] = $data['time-minute'];
+        $data['duration'] = intval($data['duration-minute']) + intval($data['duration-hour']) * 60;
+
+        unset($data['time-hour']);
+        unset($data['time-minute']);
+        unset($data['duration-hour']);
+        unset($data['duration-minute']);
+
+        $show = Show::create($data);
+
+        return redirect()->route('show.show', ['show' => $show->id]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Show  $show
-     * @return \Illuminate\Http\Response
-     */
     public function show(Show $show)
     {
-        return view("show.show", ['show' => $show]);
+        return view("show.show", compact('show'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Show  $show
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Show $show)
     {
-        //
+        return view("show.edit", compact('show'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Show  $show
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Show $show)
     {
-        //
+        $show->label = $request->input('label');
+        $show->description = $request->input('description');
+        $show->slug = $request->input('slug');
+        $show->active = $request->input('active', 1);
+
+        $show->day = $request->input('day', 0);
+        $show->hour = $request->input('time-hour', 0);
+        $show->minute = $request->input('time-minute', 0);
+        $show->duration = intval($request->input('duration-minute', 0)) +
+            intval($request->input('duration-hour', 0)) * 60;
+
+        if ($url = $request->input('homepage_url')) {
+            $show->homepage_url = $url;
+        }
+
+        if ($url = $request->input('icon_url')) {
+            $show->icon_url = $url;
+        }
+
+        $show->save();
+
+        return redirect()->route('show.show', ['show' => $show->id]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Show  $show
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Show $show)
     {
         //

@@ -20,19 +20,19 @@ class ShowSeeder extends Seeder
                 "station_slug" => 'dlf',
                 "label" => "Forschung aktuell",
                 "description" => "Meldungen aus der Wissenschaft",
-                "slug" => "dlf/forschung",
+                "slug" => "forschung",
             ],
             [
                 "station_slug" => 'dlf',
                 "label" => "Interview der Woche",
                 "description" => "Aktuelle und historische Ereignisse kommentiert",
-                "slug" => "dlf/interview",
+                "slug" => "interview",
             ],
             [
                 "station_slug" => 'dlf',
                 "label" => "Wirtschaft und Gesellschaft",
                 "description" => "Wirtschaft und Gesellschaft aktuelle Themen",
-                "slug" => "dlf/wirtschaft",
+                "slug" => "wirtschaft",
             ],
         ];
 

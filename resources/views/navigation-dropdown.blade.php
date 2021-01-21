@@ -13,25 +13,24 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        @lang('app.Dashboard')
                     </x-jet-nav-link>
                 </div>
-
+<!--
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('stations.index') }}" :active="request()->routeIs('stations.index')">
-                        {{ __('Stations') }}
+                    <x-jet-nav-link href="{{ route('station.index') }}" :active="request()->routeIs('stations.index')">
+                        {{ __('app.Stations') }}
                     </x-jet-nav-link>
                 </div>
-
+-->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('shows.index') }}" :active="request()->routeIs('shows.index')">
-                        {{ __('Shows') }}
+                    <x-jet-nav-link href="{{ route('upcoming') }}" :active="request()->routeIs('shows.index')">
+                        {{ __('app.Upcoming') }}
                     </x-jet-nav-link>
                 </div>
-
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('episodes.index') }}" :active="request()->routeIs('episodes.index')">
-                        {{ __('Episodes') }}
+                    <x-jet-nav-link href="{{ route('episode.index') }}" :active="request()->routeIs('episodes.index')">
+                        {{ __('app.Recordings') }}
                     </x-jet-nav-link>
                 </div>
             </div>

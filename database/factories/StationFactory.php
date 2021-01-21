@@ -12,7 +12,12 @@ class StationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'label' => $this->faker->name,
+            'slug' => $this->faker->word,
+            'description' => $this->faker->paragraph,
+            'homepage_url' => $this->faker->unique()->url,
+            'stream_url' => $this->faker->unique()->url,
+            'icon_url' => $this->faker->unique()->url,
         ];
     }
 }
