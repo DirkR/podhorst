@@ -17,6 +17,7 @@ class AddShowRecordingDateField extends Migration
             'shows',
             function (Blueprint $table) {
                 $table->dateTime('next_recording_at')->nullable()->after('updated_at');
+                $table->boolean('active')->default(1)->after('next_recording_at');
             }
         );
         //
@@ -32,7 +33,7 @@ class AddShowRecordingDateField extends Migration
         Schema::table(
             'shows',
             function (Blueprint $table) {
-                $table->dropColumn('next_recording_at');
+                $table->dropColumn('next_recording_at', 'active');
             }
         );
     }

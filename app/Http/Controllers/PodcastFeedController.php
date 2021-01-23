@@ -6,11 +6,11 @@ use App\DataObjects\Feed;
 use App\DataObjects\FeedItem;
 use App\Models\Episode;
 use App\Models\Station;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Carbon;
 
 class PodcastFeedController extends Controller
 {
@@ -54,7 +54,7 @@ class PodcastFeedController extends Controller
                 'author' => $station->label,
                 'email' => config('podhorst.email'),
                 'category' => 'Miscellanious',
-                'last_build_date' => $newest_item->created_at->format('r'),
+                'last_build_date' => ($newest_item ? $newest_item->created_at :  Carbon::now())->format('r'),
                 'language' => config('podhorst.language'),
                 'copyright' => date('Y') . ' ' . config('podhorst.copyright'),
             ]
@@ -70,7 +70,7 @@ class PodcastFeedController extends Controller
         $station = Station::where('slug', $station_slug)->first();
         $show = $station->shows->where('slug', $show_slug)->first();
 
-        $episodes = $show->episodes->sortByDesc('created_at');
+        $episodes = $show->episodes->sortByDesc('created_at', Carbon::now());
         $newest_item = Arr::first($episodes);
 
         $feed = Feed::create(
